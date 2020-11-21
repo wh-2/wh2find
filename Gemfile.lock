@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    wh2find (0.0.1)
+    wh2find (1.0.0)
       rails (~> 6.0.3, >= 6.0.3.4)
 
 GEM

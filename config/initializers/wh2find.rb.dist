@@ -1,0 +1,13 @@
+module Wh2find
+   INDEXABLES = [
+      {
+          entity_name: 'entity',
+          entity: Entity.new,
+          fields_to_index: {
+              name: {
+                  weight: 1
+              }
+          }
+      }
+  ]
+end

@@ -6,7 +6,11 @@ module Wh2find
     i = 0
     bgrams = []
     while i < text.length - 1 do
-      bgrams.push text[i, 2]
+      bgram = text[i, 2]
+      while bgrams.include? bgram
+        bgram = bgram + "'"
+      end
+      bgrams.push bgram
       i += 1
     end
     bgrams

@@ -8,3 +8,5 @@ require "rails/test_help"
 Minitest.backtrace_filter = Minitest::BacktraceFilter.new
 
 
+Wh2find::INDEXABLES = []
+

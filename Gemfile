@@ -13,3 +13,8 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
+
+# gem "when2stop", path: '../when2stop'
+source "https://rubygems.pkg.github.com/wh-2" do
+ gem "when2stop"
+end

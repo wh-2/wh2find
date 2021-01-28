@@ -1,6 +1,5 @@
 module Wh2find
   module Indexer
-    using ArrayRefiner
 
     def self.index entity
       index_data = Wh2find::INDEXABLES.find {|index_data| index_data[:entity] == entity.class }
@@ -12,6 +11,7 @@ module Wh2find
         index.weight = properties[:weight]
         index.matching_ids = index.matching_ids << entity._id
         entity.indexed_by = entity.indexed_by << index._id
+        entity.indexed_at = DateTime.now
         index.save!
       end
       entity.index_updated = true

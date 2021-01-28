@@ -1,0 +1,2 @@
+class EntityController < SearchableController
+end

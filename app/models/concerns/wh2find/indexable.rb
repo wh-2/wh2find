@@ -4,8 +4,9 @@ module Wh2find
     include Mongoid::Document
 
     included do
-      field :indexed_by, type: Set
+      field :indexed_by, type: Set, default: []
       field :index_updated, type: Boolean
+      field :indexed_at, type: DateTime
 
       before_update :invalidate_index
 

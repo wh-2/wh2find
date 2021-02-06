@@ -18,3 +18,7 @@ gemspec
 source "https://rubygems.pkg.github.com/wh-2" do
  gem "when2stop"
 end
+
+gem "influxdb-rails", "~> 1.0"
+
+gem "mongoid", "~> 7"

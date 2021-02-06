@@ -8,6 +8,83 @@ module Wh2find
       field :index_updated, type: Boolean
       field :indexed_at, type: DateTime
 
+      def self.get_stats
+        self.collection.aggregate(
+          [
+            {
+              '$project': {
+                'indexed_by': 1,
+                'index_updated': 1,
+                'is_indexed': {
+                  '$and': [
+                    {
+                      '$isArray': '$indexed_by'
+                    }, {
+                      '$size': '$indexed_by'
+                    }
+                  ]
+                }
+              }
+            }, {
+              '$project': {
+                'indexed_by': 1,
+                'index_updated': 1,
+                'is_indexed': 1,
+                'index_status': {
+                  '$switch': {
+                    'branches': [
+                      {
+                        'case': {
+                          '$and': [
+                            '$is_indexed', '$index_updated'
+                          ]
+                        },
+                        'then': 2
+                      }, {
+                        'case': {
+                          '$and': [
+                            '$is_indexed', {
+                            '$not': '$index_updated'
+                          }
+                          ]
+                        },
+                        'then': 1
+                      }
+                    ],
+                    'default': 0
+                  }
+                }
+              }
+            }, {
+              '$bucket': {
+                'groupBy': '$index_status',
+                'boundaries': [
+                  0, 1, 2, 3
+                ],
+                'default': -1,
+                'output': {
+                  'count': {
+                    '$sum': 1
+                  }
+                }
+              }
+            }, {
+              '$project': {
+                'count': 1,
+                'id': '$_id',
+                'index_status': {
+                  '$arrayElemAt': [
+                    [
+                      'to_index', 'to_reinddex', 'indexed'
+                    ], '$_id'
+                  ]
+                }
+              }
+            }
+          ]
+        )
+      end
+
       before_update :invalidate_index
 
       before_destroy do |document|

@@ -9,7 +9,6 @@ PATH
 
 GEM
   remote: https://rubygems.org/
-  remote: https://rubygems.pkg.github.com/wh-2/
   specs:
     actioncable (6.0.3.4)
       actionpack (= 6.0.3.4)
@@ -153,10 +152,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  influxdb-rails (~> 1.0)
-  mongoid (~> 7)
   wh2find!
-  when2stop!
 
 BUNDLED WITH
    2.1.4

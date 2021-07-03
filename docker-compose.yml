@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  lib:
+    tty: true
+    build:
+      context: .
+      args:
+        $USER_ID: "${USER_ID:-1000}"
+        GROUP_ID: "${GROUP_ID:-1000}"
+        GITHUB_USER: "${GITHUB_USER}"
+        GITHUB_TOKEN: "${GITHUB_TOKEN}"
+    volumes:
+      - .:/wd
+    ports:
+      - "3001:3000"

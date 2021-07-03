@@ -5,7 +5,7 @@ module Wh2find
 
     included do
       field :indexed_by, type: Set, default: []
-      field :index_updated, type: Boolean
+      field :index_updated, type: Mongoid::Fields::Boolean
       field :indexed_at, type: DateTime
 
       def self.get_stats

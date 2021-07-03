@@ -26,7 +26,6 @@ Gem::Specification.new do |spec|
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   spec.add_dependency "rails", "~> 6.0.3", ">= 6.0.3.4"
-  spec.add_dependency "mongoid"
-  spec.add_dependency "influxdb-rails", "~> 1.0"
+  spec.add_dependency "mongoid", "~> 7.2"
   spec.add_dependency "when2stop"
 end

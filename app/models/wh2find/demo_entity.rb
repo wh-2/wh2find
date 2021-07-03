@@ -1,5 +1,5 @@
 module Wh2find
-  class TestEntity
+  class DemoEntity
     include Mongoid::Document
     include Wh2find::Indexable
 

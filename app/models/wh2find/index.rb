@@ -17,7 +17,7 @@ module Wh2find
       puts "DETACH #{indexed_document}"
       self.matching_ids = self.matching_ids.delete document_id
       self.save!
-      puts "REMPAINING MATCHING IDS #{self.matching_ids}"
+      puts "REMAINING MATCHING IDS #{self.matching_ids}"
       if self.matching_ids.empty?
         puts "DESTROY"
         self.destroy!

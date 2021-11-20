@@ -85,20 +85,32 @@ module Wh2find
         )
       end
 
+      def mark_as_indexed
+        self.set index_updated: true
+      end
+
       before_update :invalidate_index
 
-      before_destroy do |document|
-        puts "BEFORE DESTROY #{document}"
-        document.indexed_by.map do |index_id|
-          puts "INDEXED ID #{index_id}"
-          index = Wh2find::Index.find index_id
-          puts "INDEX #{index}"
-          index.detach document
-        end
-      end
+      # before_destroy do |document|
+      #   puts "BEFORE DESTROY #{document}"
+      #   document.indexed_by.map do |index_id|
+      #     puts "INDEXED ID #{index_id}"
+      #     index = Wh2find::Index.find index_id
+      #     puts "INDEX #{index}"
+      #     index.detach document
+      #   end
+      # end
+      before_destroy :clean_indexes
 
       def invalidate_index
         self.index_updated = false
+      end
+
+      def clean_indexes
+        self.indexed_by.map do |index_id|
+          index = Wh2find::Index.find index_id
+          index.detach self
+        end
       end
     end
   end

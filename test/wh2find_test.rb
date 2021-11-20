@@ -7,6 +7,8 @@ class Wh2find::Test < ActiveSupport::TestCase
 
   test "create_test_entity" do
     ent = Wh2find::DemoEntity.new
-    assert ent.index_updated.class == Mongoid::Fields::Boolean
+    assert !ent.index_updated
   end
+
+
 end

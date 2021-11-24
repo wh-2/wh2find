@@ -17,11 +17,11 @@ RUN echo $GITHUB_USER
 ENV INSTALL_PATH /opt/app
 RUN mkdir -p $INSTALL_PATH
 
-#COPY ./ ./
+COPY ./ ./
 RUN rm -rf node_modules
 RUN gem install rails bundler
 RUN bundle config set --global rubygems.pkg.github.com $GITHUB_USER:$GITHUB_TOKEN
-RUN bundle config rubygems.pkg.github.com # && bundle install
+RUN bundle config rubygems.pkg.github.com && bundle install
 #RUN yarn install
 #RUN chown -R user:user /opt/app
 

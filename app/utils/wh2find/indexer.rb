@@ -4,7 +4,6 @@ module Wh2find
     def self.index entity
       # byebug
       index_data = Wh2find::INDEXABLES.find {|index_data| index_data[:entity] == entity.class }
-      puts "indexing #{entity._id}"
       index_data[:fields_to_index].each do |index_field, properties|
         text = entity.read_attribute index_field
         index = Wh2find::Index.find_or_create_by text: text, field: index_field, entity: index_data[:entity_name]
@@ -16,7 +15,8 @@ module Wh2find
         index.save
       end
       entity.mark_as_indexed
-      puts "Entity indexed"
+
+      ::NewRelic::Agent.record_custom_event 'entity_indexed', entity: entity.as_json
     end
   end
 end

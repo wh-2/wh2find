@@ -29,4 +29,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "mongoid", "~> 7.2"
   spec.add_dependency "influxdb-rails", "~> 1.0"
   spec.add_dependency "when2stop"
+  spec.add_dependency "newrelic_rpm"
 end

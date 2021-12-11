@@ -71,11 +71,10 @@ module Wh2find
             }, {
               '$project': {
                 'count': 1,
-                'id': '$_id',
                 'index_status': {
                   '$arrayElemAt': [
                     [
-                      'to_index', 'to_reinddex', 'indexed'
+                      'to_index', 'to_reindex', 'indexed'
                     ], '$_id'
                   ]
                 }

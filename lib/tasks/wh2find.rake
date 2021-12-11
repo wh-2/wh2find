@@ -38,16 +38,17 @@ namespace :wh2find do
     end
   end
 
-  task :stats2influx, [:entity_name, :duration_limit] => [:environment] do |_, args|
+  task :log_stats, [:entity_name, :duration_limit] => [:environment] do |_, args|
     include When2stop
     entity_name = args[:entity_name]
     duration = args[:duration_limit].to_i
     index_data = (Wh2find::INDEXABLES.find entity_name: entity_name).first
     entity_class = index_data[:entity]
     iterate for: duration.minutes do
+      byebug
       stats = entity_class.get_stats
       values = Hash[stats.collect { |item| [item[:index_status], item[:count]] }]
-      InfluxDB::Rails.client.write_point "#{entity_name}_indexes", tags: {}, values: values
+      values.each { |k, val|  NewRelic::Agent.record_metric("Wh2find/#{entity_name}/#{k}", val) }
     end
   end
 end

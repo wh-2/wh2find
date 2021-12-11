@@ -6,3 +6,5 @@ test/dummy/tmp/
 .idea/
 /.env
 .vscode/
+/config/newrelic.yml
+/test/dummy/config/newrelic.yml

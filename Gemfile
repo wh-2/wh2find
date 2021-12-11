@@ -19,6 +19,10 @@ end
 gem "influxdb-rails", "~> 1.0"
 gem "mongoid", "~> 7.2"
 
+# Monitoring
+## New Relic
+gem 'newrelic_rpm'
+
 group :development, :test do
  gem 'rspec-rails', '~> 5.0.0'
  gem 'mongoid-rspec'

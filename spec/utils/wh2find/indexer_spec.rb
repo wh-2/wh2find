@@ -29,8 +29,9 @@ RSpec.describe Wh2find::Indexer do
             }
           ]
           name = "La La Land"
-          index_id = BSON::ObjectId("611a91650e024c09406193a2")
-          entity = TestEntity.new _id: index_id, name: name
+          entity_id = BSON::ObjectId("611a91650e024c09406193a2")
+          index_id = BSON::ObjectId("611a91650e024c09406193a3")
+          entity = TestEntity.new _id: entity_id, name: name
           # entity = instance_double TestEntity, _id: BSON::ObjectId("611a91650e024c09406193a2"), name: "La La Land"
           # allow(entity).to receive(:class).and_return TestEntity
           index_class = class_double(Wh2find::Index).as_stubbed_const
@@ -50,6 +51,10 @@ RSpec.describe Wh2find::Indexer do
           #TODO: expect datetime
           expect(index).to receive(:save)
           expect(entity).to receive(:mark_as_indexed)
+          entity_as_json = { _id: entity_id, name: name, indexed_by: [index_id], indexed_at: DateTime.now }
+          allow(entity).to receive(:as_json).and_return(entity_as_json)
+          new_relic_agent = class_double(NewRelic::Agent).as_stubbed_const
+          expect(new_relic_agent).to receive(:record_custom_event).with("entity_indexed", entity: entity_as_json)
           Wh2find::Indexer.index entity
         end
       end

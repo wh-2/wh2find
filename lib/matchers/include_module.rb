@@ -2,7 +2,6 @@ require "rspec/expectations"
 
 module Wh2find
   module Matchers
-    # include RSpec::Expectations
 
     def include_module(expected)
       IncludeModule.new expected
@@ -20,7 +19,7 @@ module Wh2find
       end
 
       def description
-        'include Wh2Find::Indexable'
+        'include #{@expected}'
       end
 
       def failure_message
